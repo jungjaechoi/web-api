@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8"> 
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>AR 실내내비게이션서비스</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  
+  <!-- Favicons -->
+  <link href="/assets/img/favicon.png" rel="icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  <!-- Main CSS File -->
+  <link rel="stylesheet" type="text/css" href="/assets/js/css/styles.css">..
+
+  <!-- Kakao Login -->
+  <script src = "https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+  <!-- Google Login -->
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <meta name ="google-signin-client_id" content="46237981396-80g7m49b12mt0ef3cdlu7h0upireelj7.apps.googleusercontent.com">
+ 
+  <!-- Facebook Login -->
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v10.0&appId=796273041128746" nonce="SiOBIhLG"></script>
+
+  <!-- Naver Login -->
+  <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+</head>
+
+<body>
+
+  <div id='header'></div>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+        $("#header").load("/header.html", function () {
+        });
+    })       
+  </script>
+
+  <main id="main">
+    <h2 style="margin-top: 115px; text-align: center;">게시글 수정</h2> 
+    <form style="margin-top: 20px;" method="post">
+        <ul style="list-style-type:none; ">
+            <li style="text-align: center; margin-bottom: 10px;">
+                <input name="title" type="text" style="width:500px; font-size: 1.4rem; padding: 6px;" value="" placeholder="제목을 입력하세요" required>
+            </li>
+            <li style="text-align: center;">
+                <input name="contents" id = "contents" type="text" style="width:500px; height: 300px; font-size: 1.4rem; padding: 6px;" value=""/>
+          </li>
+            <li>
+                <input type="text" style="display: none;" id="id" name="id">
+                <input type="text" style="display: none;" id="index" name="index">
+            </li>
+            <li style="text-align: center;">
+                <input type="submit",  value="수정" style="margin-top: 25px; margin-bottom: 100px; font-size: 13px;">
+            </li>
+        </ul>
+    </form> 
+    </main><!-- End #main -->
+ 
+    <script  type="text/javascript">
+
+        function get_query()
+        { var url = document.location.href; 
+          var qs = url.substring(url.indexOf('?') + 1).split('&'); 
+          for(var i = 0, result = {}; i < qs.length; i++){ 
+            qs[i] = qs[i].split('='); 
+            result[qs[i][0]] = decodeURIComponent(qs[i][1]); 
+          } 
+          return result; 
+        }
+
+        var param = get_query();
+        var index = param.index;
+        $(document).ready(function(){
+          $.ajax({
+            url: "/loadboards",
+            type: "post",
+            datatype: "json",
+            data: {index: index-1},
+            success: function(result){
+              
+              var obj = get_query();
+              $('input[name=title]').attr('value',result.boards.title);
+              $('input[name=contents]').attr('value',result.boards.contents); 
+              $('input[name=id]').attr('value',result.boards._id);
+              $('input[name=index]').attr('value',obj.index);
+            }
+          })
+        })
+    
+      </script>
+
+
+<div id='footer'></div>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+      $("#footer").load("/footer.html", function () {
+      });
+  })       
+</script>
+
+  <a href="#" class="back-to-top"><i class="bx bx-up-arrow-alt"></i></a>
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="/assets/js/jqeury_bundle.js"></script>
+  <script src="/assets/js/bootstrap_bundle.js"></script>
+  <script src="/assets/js/counterup_bundle.js"></script>
+  <script src="/assets/js/carousel_bundle.js"></script>
+  <script src="/assets/js/aos_bundle.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/assets/js/main_bundle.js"></script>
+
+</body>
+
+</html>

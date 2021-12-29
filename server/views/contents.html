@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8"> 
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>AR 실내내비게이션서비스</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  
+  <!-- Favicons -->
+  <link href="/assets/img/favicon.png" rel="icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  <!-- Main CSS File -->
+  <link rel="stylesheet" type="text/css" href="/assets/js/css/styles.css">..
+
+  <!-- Kakao Login -->
+  <script src = "https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+  <!-- Google Login -->
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <meta name ="google-signin-client_id" content="46237981396-80g7m49b12mt0ef3cdlu7h0upireelj7.apps.googleusercontent.com">
+ 
+  <!-- Facebook Login -->
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v10.0&appId=796273041128746" nonce="SiOBIhLG"></script>
+
+  <!-- Naver Login -->
+  <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+</head>
+
+<body>
+
+  <div id='header'></div>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+        $("#header").load("/header.html", function () {
+        });
+    })       
+  </script>
+
+  <main id="main">
+    <h2 style="margin-top: 115px; margin-bottom: 20px; text-align: center;">게시글</h2> 
+    <ul style="list-style-type:none; ">
+        <li style="text-align: center; margin-bottom: 10px;">
+            <input name="opinion" id = "opinion" type="text" style="width:500px; font-size: 1.4rem; padding: 6px;" value="" readonly/>
+        </li>
+        <li style="text-align: center; margin-bottom: 10px;">
+            <input name="cellphone" id = "cellphone" type="text" style="width:500px; font-size: 1.4rem; padding: 6px;" value="" readonly/>
+        </li>
+        <li style="text-align: center; margin-bottom: 10px;">
+            <input name="title" id = "title" type="text" style="width:500px; font-size: 1.4rem; padding: 6px;" value="" readonly/>
+        </li>
+        <li style="text-align: center;">
+            <input name="contents" id = "contents" type="text" style="width:500px; height: 300px; font-size: 1.4rem; padding: 6px;" value="" readonly/>
+        </li>
+        <li style="text-align:center;">
+          <a style="border: 1px solid; margin-top: 20px; margin-right: 10px;" id="fix-btn" class = "btn btn-default " >수정</a>
+          <a style="border: 1px solid; margin-top: 20px;" id="delete-btn" class = "btn btn-default " onclick = "delete_board()">삭제</a>
+        </li>
+    </ul>
+    
+    <hr style="margin-top: 50px;" >
+    <form style="margin-top: 20px;" method="post">
+      <ul style="list-style-type:none; ">
+          <li style="text-align: center;">
+              <textarea id="comment" rows="3" cols="100" name = "comment" 
+              style="width:500px; font-size: 1.4rem; letter-spacing: 1px; padding: 6px;  line-height: 1.5; border: 1px solid;" placeholder="댓글을 입력하세요" required></textarea>
+          </li>
+          <li>
+            <input type="text" style="display: none;" id="id" name="id">
+            <input type="text" style="display: none;" id="index" name="index">
+          </li>
+          <li style="text-align: center;">
+              <input type="submit",  value="댓글 달기" style="margin-top: 15px; margin-bottom: 30px; font-size: 13px;">
+          </li>
+      </ul>
+    </form>
+
+
+    
+   
+    <table class="table" style = "width: 460px; margin: auto; margin-bottom:100px;">
+      <tbody id ="commentsShow"></tbody>
+    </table>
+  
+
+    
+  </main><!-- End #main -->
+
+  <script  type="text/javascript">
+
+  let btnshow = 0;
+
+  function btnResult(){
+    if(btnshow == 0){
+      document.getElementById('fix-btn').style = "display:none;"
+      document.getElementById('delete-btn').style = "display:none;"
+    }
+  }
+
+  $(document).ready(function(){
+    $.ajax({
+      url: "/verifyToken",
+      type: "post",
+      datatype: "json",
+      data: {token: localStorage.getItem('token')},
+      success: function(result){
+          if(result == 'ok'){
+            btnshow = 1;
+          }
+          else {
+            btnshow = 0;
+          }
+        }
+      })
+    })
+    
+
+    function get_query()
+    { var url = document.location.href; 
+      var qs = url.substring(url.indexOf('?') + 1).split('&'); 
+      for(var i = 0, result = {}; i < qs.length; i++){ 
+        qs[i] = qs[i].split('='); 
+        result[qs[i][0]] = decodeURIComponent(qs[i][1]); 
+      } 
+      return result; 
+    }
+
+    var param = get_query();
+    var index = param.index;
+    document.getElementById("fix-btn").href = "/fix.html/?index=" + index;
+
+    function delete_board(){
+      $(document).ready(function(){
+          $.ajax({
+            url: "/deleteboard",
+            type: "post",
+            data: {index:index-1},
+            success: function(result){
+              window.location.href = '/board.html';
+            }
+          })
+      })
+    }
+
+    $(document).ready(function(){
+          $.ajax({
+            url: "/loadboards",
+            type: "post",
+            datatype: "json",
+            data: {index:index-1},
+            success: function(result){
+              var obj = get_query();
+              if(result.boards.opinion=="app"){$('input[name=opinion]').attr('value','문의사항: 앱이 안깔려요');}
+              else if(result.boards.opinion=="cant-start"){$('input[name=opinion]').attr('value','문의사항: 앱이 실행이 안되요');}
+              else if(result.boards.opinion=="slow"){$('input[name=opinion]').attr('value','문의사항: 앱이 느려요');}
+              else if(result.boards.opinion=="badmap"){$('input[name=opinion]').attr('value','문의사항: 지도가 부정확해요');}
+              else if(result.boards.opinion=="howtouse"){$('input[name=opinion]').attr('value','문의사항: 어떻게 쓰는건지 모르겠어요');}
+              else if(result.boards.opinion=="etc"){$('input[name=opinion]').attr('value','문의사항: 기타');}
+
+              if(result.boards.cellphone=="1"){$('input[name=cellphone]').attr('value','스마트폰 기종: Z플립3');}
+              else if(result.boards.cellphone=="2"){$('input[name=cellphone]').attr('value','스마트폰 기종: 갤럭시 노트 10');}
+              else if(result.boards.cellphone=="3"){$('input[name=cellphone]').attr('value','스마트폰 기종: 갤럭시 노트 20');}
+              else if(result.boards.cellphone=="4"){$('input[name=cellphone]').attr('value','스마트폰 기종: 갤럭시 노트 8');}
+              else if(result.boards.cellphone=="5"){$('input[name=cellphone]').attr('value','스마트폰 기종: 갤럭시 노트 9');}
+              else if(result.boards.cellphone=="6"){$('input[name=cellphone]').attr('value','스마트폰 기종: 갤럭시 S 10');}
+              else if(result.boards.cellphone=="7"){$('input[name=cellphone]').attr('value','스마트폰 기종: 갤럭시 S 20');}
+              else if(result.boards.cellphone=="8"){$('input[name=cellphone]').attr('value','스마트폰 기종: 갤럭시 S 21');}
+              else if(result.boards.cellphone=="9"){$('input[name=cellphone]').attr('value','스마트폰 기종: 갤럭시 S 8');}
+              else if(result.boards.cellphone=="10"){$('input[name=cellphone]').attr('value','스마트폰 기종: 갤럭시 S 9');}
+              else if(result.boards.cellphone=="11"){$('input[name=cellphone]').attr('value','스마트폰 기종: 아이폰 11');}
+              else if(result.boards.cellphone=="12"){$('input[name=cellphone]').attr('value','스마트폰 기종: 아이폰 12');}
+              else if(result.boards.cellphone=="13"){$('input[name=cellphone]').attr('value','스마트폰 기종: 아이폰 13');}
+              else if(result.boards.cellphone=="14"){$('input[name=cellphone]').attr('value','스마트폰 기종: 아이폰 6');}
+              else if(result.boards.cellphone=="15"){$('input[name=cellphone]').attr('value','스마트폰 기종: 아이폰 7');}
+              else if(result.boards.cellphone=="16"){$('input[name=cellphone]').attr('value','스마트폰 기종: 아이폰 8');}
+              else if(result.boards.cellphone=="17"){$('input[name=cellphone]').attr('value','스마트폰 기종: 아이폰 SE2');}
+              else if(result.boards.cellphone=="18"){$('input[name=cellphone]').attr('value','스마트폰 기종: 아이폰 X');}
+           
+              $('input[name=title]').attr('value',result.boards.title);
+              $('input[name=contents]').attr('value',result.boards.contents); 
+              $('input[name=id]').attr('value',result.boards._id);
+              $('input[name=index]').attr('value',index);
+              if(result.boards.email!=localStorage.getItem('email')){
+                btnshow = 0;
+                btnResult();
+              }
+            }
+          })
+      }
+    )
+
+    $(document).ready(function(){
+    $.ajax({
+      url: "/loadcomments",
+      type: "post",
+      data: {index: index-1},
+      datatype: "json",
+      success: function(result){
+        
+        var length = Object.keys(result.comments).length;
+        for(var i = 0; i<length; i++){
+          var objRow;
+          objRow = document.all("commentsShow").insertRow();
+          objDate = document.all("commentsShow").insertRow();
+          objDelete =  document.all("commentsShow").insertRow();
+          var objCell = objRow.insertCell();
+          var objCell2 = objDate.insertCell();
+          var objCell3 = objDelete.insertCell();
+          var frmTag = result.comments[i].comment;
+          var frmTag2 = result.comments[i].date.year + '-' + result.comments[i].date.month + '-' + result.comments[i].date.day
+          var frmTag3 = '삭제';
+          objCell.innerHTML = frmTag;
+          objCell2.innerHTML = frmTag2;
+          objCell3.innerHTML = frmTag3;
+          objCell.style = "font-size: 1.5em; border-bottom:none; padding-top:15px; padding-bottom: 3px; width:460px;"
+          objCell2.style = "font-size: 1em; color:gray; border:none; padding-top:6px; padding-bottom: 0px;"
+          objCell3.style = "border-top:none; padding-top 0px;"
+          objCell3.onclick = function(element){
+            $(document).ready(function(){
+              $.ajax({
+                url: "/deletecomment",
+                type: "post",
+                data: {index_board: index-1, index_comment: parseInt(element.srcElement.parentNode.rowIndex/3)},
+                success: function(result){
+                   window.location.href = '/contents.html/?index='+index;
+            }
+              })
+            })
+          }
+          objRow.style = "word-break: break-all;"
+      }
+
+      }
+    })
+  })
+  </script>
+  
+  <div id='footer'></div>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+        $("#footer").load("/footer.html", function () {
+        });
+    })       
+  </script>
+  <a href="#" class="back-to-top"><i class="bx bx-up-arrow-alt"></i></a>
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="/assets/js/jqeury_bundle.js"></script>
+  <script src="/assets/js/bootstrap_bundle.js"></script>
+  <script src="/assets/js/counterup_bundle.js"></script>
+  <script src="/assets/js/carousel_bundle.js"></script>
+  <script src="/assets/js/aos_bundle.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/assets/js/main_bundle.js"></script>
+
+</body>
+
+</html>
