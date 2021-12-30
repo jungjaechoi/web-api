@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import rootRouter from "./routers/rootRouter.js";
+import boardRouter from "./routers/boardRouter.js";
 import { createRequire } from "module";
 import path from 'path';
 
@@ -18,5 +19,6 @@ app.set("views", process.cwd() + "/server/views");
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 app.use("/", rootRouter);
+app.use("/board", boardRouter);
 
 export default app;

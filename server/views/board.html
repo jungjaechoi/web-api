@@ -132,7 +132,7 @@
 
     function goWrite(){
       if(guaranteed==1){
-        window.location.href='/write.html';
+        window.location.href='/board/write.html';
       }
       else if(guaranteed==0){
         alert("로그인이 필요한 서비스입니다")
@@ -164,7 +164,7 @@
 
      $(document).ready(function(){
       $.ajax({
-        url: "/loadpagination",
+        url: "/board/loadpagination",
         type: "get",
         datatype: "json",
         success: function(result){
@@ -289,7 +289,7 @@
       if(isonlymine==0){
           $(document).ready(function(){
         $.ajax({
-          url: "/loadpagination",
+          url: "/board/loadpagination",
           type: "get",
           datatype: "json",
           success: function(result){
@@ -507,7 +507,7 @@
       if(isonlymine==1){
           $(document).ready(function(){
         $.ajax({
-          url: "/onlyminepagination",
+          url: "/board/onlyminepagination",
           type: "post",
           datatype: "json",
           data:{email:localStorage.getItem('email')},
@@ -731,7 +731,7 @@
     //처음 게시판 로딩
     $(document).ready(function(){
       $.ajax({
-        url: "/loadboards",
+        url: "/board/loadboards",
         type: "get",
         datatype: "json",
         success: function(result){
@@ -807,7 +807,7 @@
           }
           else{
             objRow.onclick = function(element){
-              window.location.href = "/contents.html/?index=" + element.srcElement.parentNode.rowIndex;
+              window.location.href = "/board/contents.html/?index=" + element.srcElement.parentNode.rowIndex;
             }
           }
         }
@@ -821,7 +821,7 @@
       if(isonlymine==0){
           $(document).ready(function(){
           $.ajax({
-            url: "/loadboards",
+            url: "/board/loadboards",
             type: "get",
             datatype: "json",
             success: function(result){
@@ -929,7 +929,7 @@
               }
               else{
                 objRow.onclick = function(element){
-                  window.location.href = "/contents.html/?index=" + (num*page_board_num+element.srcElement.parentNode.rowIndex);
+                  window.location.href = "/board/contents.html/?index=" + (num*page_board_num+element.srcElement.parentNode.rowIndex);
                 }
               }
             }
@@ -941,7 +941,7 @@
       else{
         $(document).ready(function(){
           $.ajax({
-            url: "/loadmine",
+            url: "/board/loadmine",
             type: "post",
             datatype: "json",
             data: {email: localStorage.getItem('email')},
@@ -1049,7 +1049,7 @@
               }
               else{
                 objRow.onclick = function(element){
-                  window.location.href = "/contents.html/?index=" + (num*page_board_num+element.srcElement.parentNode.rowIndex);
+                  window.location.href = "/board/contents.html/?index=" + (num*page_board_num+element.srcElement.parentNode.rowIndex);
                 }
               }
             }

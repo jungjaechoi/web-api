@@ -135,12 +135,12 @@
 
     var param = get_query();
     var index = param.index;
-    document.getElementById("fix-btn").href = "/fix.html/?index=" + index;
+    document.getElementById("fix-btn").href = "/board/fix.html/?index=" + index;
 
     function delete_board(){
       $(document).ready(function(){
           $.ajax({
-            url: "/deleteboard",
+            url: "/board/deleteboard",
             type: "post",
             data: {index:index-1},
             success: function(result){
@@ -152,7 +152,7 @@
 
     $(document).ready(function(){
           $.ajax({
-            url: "/loadboards",
+            url: "/board/loadboards",
             type: "post",
             datatype: "json",
             data: {index:index-1},
@@ -199,7 +199,7 @@
 
     $(document).ready(function(){
     $.ajax({
-      url: "/loadcomments",
+      url: "/board/loadcomments",
       type: "post",
       data: {index: index-1},
       datatype: "json",
@@ -226,11 +226,11 @@
           objCell3.onclick = function(element){
             $(document).ready(function(){
               $.ajax({
-                url: "/deletecomment",
+                url: "/board/deletecomment",
                 type: "post",
                 data: {index_board: index-1, index_comment: parseInt(element.srcElement.parentNode.rowIndex/3)},
                 success: function(result){
-                   window.location.href = '/contents.html/?index='+index;
+                   window.location.href = '/board/contents.html/?index='+index;
             }
               })
             })
