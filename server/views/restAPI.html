@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>AR 실내내비게이션서비스</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+  <!-- Favicons -->
+  <link href="/assets/img/favicon.png" rel="icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+  <!-- Main CSS File -->
+  <link rel="stylesheet" type="text/css" href="/assets/js/css/styles.css">..
+
+</head>
+
+<body>
+
+  <div id='header'></div>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+        $("#header").load("/header.html", function () {
+        });
+    })       
+  </script>
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs" data-aos="fade-in">
+      <div class="container">
+        <h2>REST API</h2>
+      </div>
+    </div><!-- End Breadcrumbs -->
+
+    <!-- ======= Summary Tabs Section ======= -->
+    <section id="cource-details-tabs" class="cource-details-tabs"style="margin-top:70px">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row">
+          <div class="col-lg-3">
+            <ul class="nav nav-tabs flex-column">
+              <li class="nav-item">
+                <a class="nav-link active show" data-toggle="tab" href="#tab-1">OCR</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tab-2">WaterMark</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tab-3">QR</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tab-4">Steganograpy Encoding</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tab-4">Steganograpy Decoding</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tab-4">Total Process</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tab-4">Image Load</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tab-4">BlockChain Upload</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tab-4">Token Array Get</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tab-4">Token Search</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tab-4">Token Trans</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-9 mt-4 mt-lg-0">
+            <div class="tab-content">
+              <!-- tab1 -->
+              <div class="tab-pane active " id="tab-1">
+                <div class="row">
+                  <div class="col-lg-12 details order-2 order-lg-1">
+                    <h2>OCR</h2>
+                    <h3 style="margin-top: 10px;">업로드한 이미지 파일을 OCR 기능을 통해 텍스트 데이터로 변환하여 기능</h3>
+                    <h3 style="margin-top: 70px;">> Request</h3>
+                    <h3 style="margin-top: 40px;">  URL</h3>
+                    
+                    <textarea id="story" rows="2" cols="100" name = "contents"
+                    style="width:700px; font-size: 1.4rem; letter-spacing: 1px; padding: 6px;  line-height: 1.8; border-radius: 5px; border: 1px solid;">POST /ocr
+Host: 203.251.137.136</textarea>
+                    <h3 style="margin-top: 40px;">Parameter</h3>
+                    <table border="1" width ="700" height="300" style="padding: 6px;">
+                      <th><font size="3px">&nbsp;&nbsp;Name</font></th>
+                      <th><font size="3px">&nbsp;&nbsp;Type</font></th>
+                      <th><font size="3px">&nbsp;&nbsp;Description</font></th>
+                      <th width="90px"><font size="3px">&nbsp;&nbsp;Required</font></th>
+                        <tr>
+                            <td><font size="2px">&nbsp;&nbsp;file</font></td>
+                            <td><font size="2px">&nbsp;&nbsp;image</font></td>
+                            <td><font size="2px">&nbsp;&nbsp;OCR 처리를 할 파일</font></td>
+                            <td><font size="3px">&nbsp;&nbsp;O</font></td>
+                        </tr>
+                        <tr>
+                            <td><font size="2px">&nbsp;&nbsp;name</font></td>
+                            <td><font size="2px">&nbsp;&nbsp;String</font></td>
+                            <td><font size="2px">&nbsp;&nbsp;이미지 파일의 이름, 현재는 생성한 날짜의 데이터</font></td>
+                            <td><font size="3px">&nbsp;&nbsp;O</font></td>
+                        </tr>
+                        <tr>
+                          <td><font size="2px">&nbsp;&nbsp;jwt</font></td>
+                          <td><font size="2px">&nbsp;&nbsp;String</font></td>
+                          <td><font size="2px">&nbsp;&nbsp;Json Web Token 시스템에 사용하는 Token 값</font></td>
+                          <td><font size="3px">&nbsp;&nbsp;O</font></td>
+                        </tr>
+                    </table>
+                    <h3 style="margin-top: 40px;">Response</h3>
+                    <table border="1" width ="700" height="100" style="padding: 6px;">
+                      <th><font size="3px">&nbsp;&nbsp;Name</font></th>
+                      <th><font size="3px">&nbsp;&nbsp;Type</font></th>
+                      <th><font size="3px">&nbsp;&nbsp;Description</font></th>
+                        <tr>
+                            <td><font size="2px">&nbsp;&nbsp;result</font></td>
+                            <td><font size="2px">&nbsp;&nbsp;String</font></td>
+                            <td><font size="2px">&nbsp;&nbsp;OCR 기능을 통해 만들어진 Text 값</font></td>
+                        </tr>
+                    </table>
+<!-- -d  -->
+<!-- image 어케 쓰는가 -->
+                    <h3 style="margin-top: 70px;">> Sample</h3>
+                    <h3 style="margin-top: 40px;">Request</h3>
+                    <textarea id="story" rows="8" cols="100" name = "contents"
+                    style="width:700px; font-size: 1.4rem; letter-spacing: 1px; padding: 6px;  line-height: 1.8; border-radius: 5px; border: 1px solid;">curl -v -X POST "203.251.137.136/orc" \
+"{
+  "name": "1638430570151",
+  "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6IlRlc3QxIiwiaWF0IjoxNjQwODY1MzEzLCJleHAiOjE2NDA4NjcxMTN9.hKfs0Z_cRPTg4jv-89FY9Dj8SPMNd4GBlEszrRRxJAE"
+}"							
+                    </textarea>
+                    <h3 style="margin-top: 40px;">Response: 성공</h3>
+                    <!-- Content-Type: application/json;charset=UTF-8 -->
+                    <textarea id="story" rows="4" cols="100" name = "contents"
+                    style="width:700px; font-size: 1.4rem; letter-spacing: 1px; padding: 6px;  line-height: 1.8; border-radius: 5px; border: 1px solid;">
+HTTP/1.1 200 OK
+"{
+  "result": "현재 이 텍스트는 OCR 모듈을 통해 이미지에서 분석한 텍스트 값입니다"
+}" </textarea>
+                  </div>
+                </div>
+              </div>
+              <!-- tab2 -->
+              <div class="tab-pane" id="tab-2" >
+                <div class="row">
+                  <div class="col-lg-8 details order-2 order-lg-1">
+                    <h2>WaterMark</h2>
+                    <h3 style="margin-top: 10px;">업로드한 이미지 파일을 Watermark 를 삽입하는 기능</h3>
+                    <h3 style="margin-top: 70px;">> Request</h3>
+                    <h3 style="margin-top: 40px;">  URL</h3>
+                    
+                    <textarea id="story" rows="2" cols="100" name = "contents"
+                    style="width:700px; font-size: 1.4rem; letter-spacing: 1px; padding: 6px;  line-height: 1.8; border-radius: 5px; border: 1px solid;">POST /water
+Host: 203.251.137.136</textarea>
+                    <h3 style="margin-top: 40px;">Parameter</h3>
+                    <table border="1" width ="700" height="300" style="padding: 6px;">
+                      <th><font size="3px">&nbsp;&nbsp;Name</font></th>
+                      <th><font size="3px">&nbsp;&nbsp;Type</font></th>
+                      <th><font size="3px">&nbsp;&nbsp;Description</font></th>
+                      <th width="90px"><font size="3px">&nbsp;&nbsp;Required</font></th>
+                        <tr>
+                            <td><font size="2px">&nbsp;&nbsp;file</font></td>
+                            <td><font size="2px">&nbsp;&nbsp;image</font></td>
+                            <td><font size="2px">&nbsp;&nbsp;WaterMark를 삽입할 파일</font></td>
+                            <td><font size="3px">&nbsp;&nbsp;O</font></td>
+                        </tr>
+                        <tr>
+                            <td><font size="2px">&nbsp;&nbsp;name</font></td>
+                            <td><font size="2px">&nbsp;&nbsp;String</font></td>
+                            <td><font size="2px">&nbsp;&nbsp;이미지 파일의 이름, 현재는 생성한 날짜의 데이터</font></td>
+                            <td><font size="3px">&nbsp;&nbsp;O</font></td>
+                        </tr>
+                        <tr>
+                          <td><font size="2px">&nbsp;&nbsp;text</font></td>
+                          <td><font size="2px">&nbsp;&nbsp;String</font></td>
+                          <td><font size="2px">&nbsp;&nbsp;WaterMark에 삽입한 문자 데이터</font></td>
+                          <td><font size="3px">&nbsp;&nbsp;O</font></td>
+                        </tr>
+                        <tr>
+                          <td><font size="2px">&nbsp;&nbsp;jwt</font></td>
+                          <td><font size="2px">&nbsp;&nbsp;String</font></td>
+                          <td><font size="2px">&nbsp;&nbsp;Json Web Token 시스템에 사용하는 Token 값</font></td>
+                          <td><font size="3px">&nbsp;&nbsp;O</font></td>
+                        </tr>
+                    </table>
+                    <h3 style="margin-top: 40px;">Response</h3>
+                    <table border="1" width ="700" height="100" style="padding: 6px;">
+                      <th><font size="3px">&nbsp;&nbsp;Name</font></th>
+                      <th><font size="3px">&nbsp;&nbsp;Type</font></th>
+                      <th><font size="3px">&nbsp;&nbsp;Description</font></th>
+                        <tr>
+                            <td><font size="2px">&nbsp;&nbsp;result_url</font></td>
+                            <td><font size="2px">&nbsp;&nbsp;String</font></td>
+                            <td><font size="2px">&nbsp;&nbsp;WaterMark 삽입한 이미지를 호출하는 URL 값</font></td>
+                        </tr>
+                    </table>
+                    <h3 style="margin-top: 70px;">> Sample</h3>
+                    <h3 style="margin-top: 40px;">Request</h3>
+                    <textarea id="story" rows="8" cols="100" name = "contents"
+                    style="width:700px; font-size: 1.4rem; letter-spacing: 1px; padding: 6px;  line-height: 1.8; border-radius: 5px; border: 1px solid;">curl -v -X POST "203.251.137.136/orc" \
+"{
+  "name": "1638430570151",
+  "text": ""Sample Text",
+  "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6IlRlc3QxIiwiaWF0IjoxNjQwODY1MzEzLCJleHAiOjE2NDA4NjcxMTN9.hKfs0Z_cRPTg4jv-89FY9Dj8SPMNd4GBlEszrRRxJAE"
+}"							               
+                    </textarea>
+                    <h3 style="margin-top: 40px;">Response: 성공</h3>
+                    <textarea id="story" rows="4" cols="100" name = "contents"
+                    style="width:700px; font-size: 1.4rem; letter-spacing: 1px; padding: 6px;  line-height: 1.8; border-radius: 5px; border: 1px solid;">
+HTTP/1.1 200 OK
+"{
+  "result_url":"localhist:3000/12345678"
+}"							
+   </textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="tab-3">
+                <div class="row">
+                  <div class="col-lg-8 details order-2 order-lg-1">
+                    <h2>OCR</h2>
+                    <h3 style="margin-top: 10px;">업로드한 이미지 파일을 OCR 기능을 통해 텍스트 데이터로 변환하여 기능</h3>
+                    <h3 style="margin-top: 70px;">> Request</h3>
+                    <h3 style="margin-top: 40px;">  URL</h3>
+                    
+                    <textarea id="story" rows="2" cols="100" name = "contents"
+                    style="width:700px; font-size: 1.4rem; letter-spacing: 1px; padding: 6px;  line-height: 1.8; border-radius: 5px; border: 1px solid;">POST /ocr
+Host: 203.251.137.136</textarea>
+                    <h3 style="margin-top: 40px;">Parameter</h3>
+                    <table border="1" width ="700" height="300" style="padding: 6px;">
+                      <th><font size="3px">&nbsp;&nbsp;Name</font></th>
+                      <th><font size="3px">&nbsp;&nbsp;Type</font></th>
+                      <th><font size="3px">&nbsp;&nbsp;Description</font></th>
+                      <th width="90px"><font size="3px">&nbsp;&nbsp;Required</font></th>
+                        <tr>
+                            <td><font size="2px">&nbsp;&nbsp;file</font></td>
+                            <td><font size="2px">&nbsp;&nbsp;image</font></td>
+                            <td><font size="2px">&nbsp;&nbsp;OCR 처리를 할 파일</font></td>
+                            <td><font size="3px">&nbsp;&nbsp;O</font></td>
+                        </tr>
+                        <tr>
+                            <td><font size="2px">&nbsp;&nbsp;name</font></td>
+                            <td><font size="2px">&nbsp;&nbsp;String</font></td>
+                            <td><font size="2px">&nbsp;&nbsp;이미지 파일의 이름, 현재는 생성한 날짜의 데이터</font></td>
+                            <td><font size="3px">&nbsp;&nbsp;O</font></td>
+                        </tr>
+                        <tr>
+                          <td><font size="2px">&nbsp;&nbsp;jwt</font></td>
+                          <td><font size="2px">&nbsp;&nbsp;String</font></td>
+                          <td><font size="2px">&nbsp;&nbsp;Json Web Token 시스템에 사용하는 Token 값</font></td>
+                          <td><font size="3px">&nbsp;&nbsp;O</font></td>
+                        </tr>
+                    </table>
+                    <h3 style="margin-top: 40px;">Response</h3>
+                    <table border="1" width ="700" height="100" style="padding: 6px;">
+                      <th><font size="3px">&nbsp;&nbsp;Name</font></th>
+                      <th><font size="3px">&nbsp;&nbsp;Type</font></th>
+                      <th><font size="3px">&nbsp;&nbsp;Description</font></th>
+                        <tr>
+                            <td><font size="2px">&nbsp;&nbsp;result</font></td>
+                            <td><font size="2px">&nbsp;&nbsp;String</font></td>
+                            <td><font size="2px">&nbsp;&nbsp;OCR 기능을 통해 만들어진 Text 값</font></td>
+                        </tr>
+                    </table>
+                    <h3 style="margin-top: 70px;">> Sample</h3>
+                    <h3 style="margin-top: 40px;">Request</h3>
+                    <textarea id="story" rows="8" cols="100" name = "contents"
+                    style="width:700px; font-size: 1.4rem; letter-spacing: 1px; padding: 6px;  line-height: 1.8; border-radius: 5px; border: 1px solid;">curl -v -X POST "203.251.137.136/orc" \
+"{
+  "name": "1638430570151",
+  "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6IlRlc3QxIiwiaWF0IjoxNjQwODY1MzEzLCJleHAiOjE2NDA4NjcxMTN9.hKfs0Z_cRPTg4jv-89FY9Dj8SPMNd4GBlEszrRRxJAE"
+}"							
+                    </textarea>
+                    <h3 style="margin-top: 40px;">Response: 성공</h3>
+                    <textarea id="story" rows="4" cols="100" name = "contents"
+                    style="width:700px; font-size: 1.4rem; letter-spacing: 1px; padding: 6px;  line-height: 1.8; border-radius: 5px; border: 1px solid;">
+HTTP/1.1 200 OK
+"{
+  ""result"": ""현재 이 텍스트는 OCR 모듈을 통해 이미지에서 분석한 텍스트 값입니다""
+  }" </textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="tab-4">
+                <div class="row">
+                  <div class="col-lg-8 details order-2 order-lg-1">
+                    <h2>OCR</h2>
+                    <h3 style="margin-top: 10px;">업로드한 이미지 파일을 OCR 기능을 통해 텍스트 데이터로 변환하여 기능</h3>
+                    <h3 style="margin-top: 70px;">> Request</h3>
+                    <h3 style="margin-top: 40px;">  URL</h3>
+                    
+                    <textarea id="story" rows="2" cols="100" name = "contents"
+                    style="width:700px; font-size: 1.4rem; letter-spacing: 1px; padding: 6px;  line-height: 1.8; border-radius: 5px; border: 1px solid;">POST /ocr
+Host: 203.251.137.136</textarea>
+                    <h3 style="margin-top: 40px;">Parameter</h3>
+                    <table border="1" width ="700" height="300" style="padding: 6px;">
+                      <th><font size="3px">&nbsp;&nbsp;Name</font></th>
+                      <th><font size="3px">&nbsp;&nbsp;Type</font></th>
+                      <th><font size="3px">&nbsp;&nbsp;Description</font></th>
+                      <th width="90px"><font size="3px">&nbsp;&nbsp;Required</font></th>
+                        <tr>
+                            <td><font size="2px">&nbsp;&nbsp;file</font></td>
+                            <td><font size="2px">&nbsp;&nbsp;image</font></td>
+                            <td><font size="2px">&nbsp;&nbsp;OCR 처리를 할 파일</font></td>
+                            <td><font size="3px">&nbsp;&nbsp;O</font></td>
+                        </tr>
+                        <tr>
+                            <td><font size="2px">&nbsp;&nbsp;name</font></td>
+                            <td><font size="2px">&nbsp;&nbsp;String</font></td>
+                            <td><font size="2px">&nbsp;&nbsp;이미지 파일의 이름, 현재는 생성한 날짜의 데이터</font></td>
+                            <td><font size="3px">&nbsp;&nbsp;O</font></td>
+                        </tr>
+                        <tr>
+                          <td><font size="2px">&nbsp;&nbsp;jwt</font></td>
+                          <td><font size="2px">&nbsp;&nbsp;String</font></td>
+                          <td><font size="2px">&nbsp;&nbsp;Json Web Token 시스템에 사용하는 Token 값</font></td>
+                          <td><font size="3px">&nbsp;&nbsp;O</font></td>
+                        </tr>
+                    </table>
+                    <h3 style="margin-top: 40px;">Response</h3>
+                    <table border="1" width ="700" height="100" style="padding: 6px;">
+                      <th><font size="3px">&nbsp;&nbsp;Name</font></th>
+                      <th><font size="3px">&nbsp;&nbsp;Type</font></th>
+                      <th><font size="3px">&nbsp;&nbsp;Description</font></th>
+                        <tr>
+                            <td><font size="2px">&nbsp;&nbsp;result</font></td>
+                            <td><font size="2px">&nbsp;&nbsp;String</font></td>
+                            <td><font size="2px">&nbsp;&nbsp;OCR 기능을 통해 만들어진 Text 값</font></td>
+                        </tr>
+                    </table>
+                    <h3 style="margin-top: 70px;">> Sample</h3>
+                    <h3 style="margin-top: 40px;">Request</h3>
+                    <textarea id="story" rows="8" cols="100" name = "contents"
+                    style="width:700px; font-size: 1.4rem; letter-spacing: 1px; padding: 6px;  line-height: 1.8; border-radius: 5px; border: 1px solid;">curl -v -X POST "203.251.137.136/orc" \
+"{
+  "name": "1638430570151",
+  "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6IlRlc3QxIiwiaWF0IjoxNjQwODY1MzEzLCJleHAiOjE2NDA4NjcxMTN9.hKfs0Z_cRPTg4jv-89FY9Dj8SPMNd4GBlEszrRRxJAE"
+}"							
+                    </textarea>
+                    <h3 style="margin-top: 40px;">Response: 성공</h3>
+                    <textarea id="story" rows="4" cols="100" name = "contents"
+                    style="width:700px; font-size: 1.4rem; letter-spacing: 1px; padding: 6px;  line-height: 1.8; border-radius: 5px; border: 1px solid;">
+HTTP/1.1 200 OK
+"{
+  ""result"": ""현재 이 텍스트는 OCR 모듈을 통해 이미지에서 분석한 텍스트 값입니다""
+  }" </textarea>
+                  </div>
+                </div>
+              </div>
+             
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Cource Details Tabs Section -->
+
+  </main><!-- End #main -->
+
+
+
+  <a href="#" class="back-to-top"><i class="bx bx-up-arrow-alt"></i></a>
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="/assets/js/jqeury_bundle.js"></script>
+  <script src="/assets/js/bootstrap_bundle.js"></script>
+  <script src="/assets/js/counterup_bundle.js"></script>
+  <script src="/assets/js/carousel_bundle.js"></script>
+  <script src="/assets/js/aos_bundle.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/assets/js/main_bundle.js"></script>
+
+</body>
+
+</html>

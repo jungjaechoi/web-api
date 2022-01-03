@@ -19,16 +19,12 @@ export const down = async(req,res) => {
     return res.render("down.html");
 };
 
-export const summary = async(req,res) => {
-    return res.render("summary.html");
+export const restAPI = async(req,res) => {
+    return res.render("restAPI.html");
 };
 
-export const manual = async(req,res) => {
-    return res.render("manual.html");
-};
-
-export const tokenSample = async(req,res) => {
-    return res.render("tokenSample.html");
+export const demo = async(req,res) => {
+    return res.render("demo.html");
 };
 
 export const getLogin = async(req,res) => {
