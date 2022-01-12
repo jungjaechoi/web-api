@@ -26,7 +26,7 @@ export const getWrite = async(req,res) => {
 }
 
 export const postWrite = async(req,res) => {
-    const {opinion,cellphone,title, contents, email, name, issecret} = req.body;
+    const {opinion,title, contents, email, name, issecret} = req.body;
     let secret = 1;
     if(issecret==null){
         secret = 0;
@@ -39,7 +39,6 @@ export const postWrite = async(req,res) => {
     try{
         await Board.create({
             opinion,
-            cellphone,
             title,
             contents,
             date,
@@ -52,7 +51,7 @@ export const postWrite = async(req,res) => {
         console.log('db 저장과정에서 error 발생')
     }
 
-    return res.redirect('board.html');
+    return res.redirect('/board.html');
 }
 
 export const getContents = async(req,res) => {
