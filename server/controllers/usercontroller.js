@@ -2,6 +2,7 @@ import User from "../models/User.js";
 import Board from "../models/Board.js";
 import jwt from 'jsonwebtoken';
 import {secretKey, option} from "../config/secretkey.js";
+import {admin} from "../config/admin.js";
 
 export const home = async (req, res) => {
     return res.render("index.html");
@@ -25,6 +26,10 @@ export const restAPI = async(req,res) => {
 
 export const demo = async(req,res) => {
     return res.render("demo.html");
+};
+
+export const chart = async(req,res) => {
+    return res.render("chart.html");
 };
 
 export const getLogin = async(req,res) => {
@@ -147,5 +152,20 @@ export const verifyToken = async(req,res) => {
         }
     } catch(err){
         return res.send('tokenExpired');
+    }
+}
+
+export const isAdmin = async(req,res) => {
+    try{
+        const {email} = req.body; 
+
+        if(email==admin){
+            return res.send('admin');
+        }
+        else{
+            return res.status('user');
+        }
+    } catch(err){
+        return res.send(404);
     }
 }

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600,700" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/assets/js/css/easion.css">
+    <!--<link rel="stylesheet" type="text/css" href="/assets/js/css/styles.css">-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+    <script src="/assets/js/chart-js-config.js"></script>
+    <!--<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>-->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>AR 실내내비게이션서비스</title>
+    <!-- 여기서부터 AR 실내내비게이션서비스에서-->
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    
+    <!-- Favicons -->
+    <link href="/assets/img/favicon.png" rel="icon">
+  
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  
+    <!-- Main CSS File -->
+    <link rel="stylesheet" type="text/css" href="/assets/js/css/styles.css">..
+  
+    <!-- Kakao Login -->
+    <script src = "https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+  
+    <!-- Google Login -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name ="google-signin-client_id" content="46237981396-80g7m49b12mt0ef3cdlu7h0upireelj7.apps.googleusercontent.com">
+   
+    <!-- Facebook Login -->
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v10.0&appId=796273041128746" nonce="SiOBIhLG"></script>
+  
+    <!-- Naver Login -->
+    <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+</head>
+
+<body>
+
+    <div id='header'></div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#header").load("/header.html", function () {
+            });
+        })       
+    </script>
+
+    <!--<li><div style = "position: absolute;  margin-left:230px; margin-top:1px; font-size: 12px;" id="result"></div></li>-->
+    <!--<div class="dash">-->
+            <main class="dash-content" style="margin-top: 120px; margin-bottom: 100px;">
+                <div class="container-fluid">
+                    <!--<h1 class="dash-title">Chart.js</h1>
+                    <p class="mb-5"> These charts are made using the Chart.js library. You can find more examples and ways to configure the charts in the <a href="http://chartjs.org" target="_blank">Chart.js Documentation</a>. </p>-->
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="card easion-card">
+                                <div class="card-header" style="font-size: 15px;">
+                                    <div class="easion-card-icon">
+                                        <i class="fas fa-chart-bar"></i>
+                                    </div>
+                                    <div class="easion-card-title"> 완료 여부 </div>
+                                    <div class="easion-card-menu">
+                                        <!--<div class="dropdown show">
+                                            <a class="easion-card-menu-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                                                <a class="dropdown-item" href="#">Action</a>
+                                                <a class="dropdown-item" href="#">Another action</a>
+                                                <a class="dropdown-item" href="#">Something else here</a>
+                                            </div>
+                                        </div>-->
+                                    </div>
+                                </div>
+                                <div class="card-body easion-card-body-chart">
+                                    <canvas id="easionChartjsTwoBars"></canvas>
+                                    <script>
+                                        var ctx = document.getElementById("easionChartjsTwoBars").getContext('2d');
+
+                                        function charData_bars() {
+                                        var result1;
+
+                                        $.ajax({
+                                            url: "/board/loadboards",
+                                            type: "get",
+                                            datatype: "json",
+                                            async: false,
+                                            success: function(result){
+        
+                                                var param = JSON.stringify(result);
+                                                var length = Object.keys(result.boards).length;
+                                                var boards = JSON.stringify(result.boards);
+                                                var comment_exist = JSON.stringify(result.comment_exist);
+
+                                                arr1 = new Array(comment_exist);
+                                                commentArray = JSON.parse(arr1[0]).split(",")
+                                                
+                                                notAnswer = length - commentArray.length;
+                                                answerComplete = commentArray.length;
+                                                
+                                                        } 
+                                                        
+                                                    })
+                                            return [notAnswer, answerComplete]  
+                                        
+                                    }
+
+                                    result_bars = charData_bars();
+
+
+
+                                        var myChart = new Chart(ctx, {
+                                            type: 'bar',
+                                            data: {
+                                                //labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                                                //labels: ["답변예정", "답변완료"],
+                                                datasets: [{
+                                                    label: '답변예정',
+                                                    data: [notAnswer],
+                                                    backgroundColor: window.chartColors.primary,
+                                                    borderColor: 'transparent'
+                                                }, {
+                                                    label: '답변완료',
+                                                    data: [answerComplete],
+                                                    backgroundColor: window.chartColors.danger,
+                                                    borderColor: 'transparent'
+                                                }]
+                                            },
+                                            options: {
+                                                legend: {
+                                                    display: true
+                                                },
+                                                scales: {
+                                                    yAxes: [{
+                                                        ticks: {
+                                                            beginAtZero: true
+                                                        }
+                                                    }]
+                                                }
+                                            }
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                        <div class="col-xl-6">
+                            <div class="card easion-card">
+                                <div class="card-header" style="font-size: 15px;">
+                                    <div class="easion-card-icon">
+                                        <i class="fas fa-chart-bar"></i>
+                                    </div>
+                                    <div class="easion-card-title"> 문의사항 </div>
+
+                                    <div class="easion-card-menu">
+                                        <!--<div class="dropdown show">
+                                            <a class="easion-card-menu-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                                                <a class="dropdown-item" href="#">Action</a>
+                                                <a class="dropdown-item" href="#">Another action</a>
+                                                <a class="dropdown-item" href="#">Something else here</a>
+                                            </div>
+                                        </div>-->
+                                    </div>
+                                </div>
+                                <div class="card-body easion-card-body-chart">
+                                    <canvas id="easionChartjsDougnut"></canvas>
+                                    <!--<canvas id="easionChartjsPolar"></canvas>-->
+                                    <script>
+                                        var ctx = document.getElementById("easionChartjsDougnut").getContext('2d');
+                                        //var ctx = document.getElementById("easionChartjsPolar").getContext('2d');
+                                        //window.app = 0;
+                                        function charData() {
+                                        var result1;
+
+                                        $.ajax({
+                                             url: "/board/loadboards",
+                                            type: "get",
+                                            datatype: "json",
+                                            async: false,
+                                            success: function(result){
+        
+                                                var param = JSON.stringify(result);
+                                                //document.write("param: " + param +'typeof: '+ typeof(param)+ "<br/>");
+                                                var length = Object.keys(result.boards).length;
+                                                //document.write("length: " + length + 'typeof: ' + typeof(length)+ "<br/>"); 
+                                                //function(result, status) { $("#text").html(result + "<br>" + status); // 전송받은 데이터와 전송 성공 여부를 보여줌. }
+                                                var boards = JSON.stringify(result.boards);
+                                                var comment_exist = JSON.stringify(result.comment_exist);
+                                                //alert(result);
+                                                //alert(param);
+                                                //alert(length);
+                                                //alert(boards+"typeof: "+typeof(boards));
+                                                //$('body').append(boards);
+                                                //$('body').append(comment_exist);
+                                                arr = new Array(boards);
+                                                arr1 = new Array(comment_exist);
+                                                commentArray = JSON.parse(arr1[0]).split(",")
+                                                
+                                                //alert(arr);
+                                                //alert(arr+"typeof: "+typeof(arr));
+                                                //alert(JSON.parse(arr).filter(element => element.opinion == 'app').length);
+                                                ocr =  JSON.parse(arr).filter(element => element.opinion == 'ocr').length;
+                                                watermark =  JSON.parse(arr).filter(element => element.opinion == 'watermark').length;
+                                                qr =  JSON.parse(arr).filter(element => element.opinion == 'qr').length;
+                                                steganography =  JSON.parse(arr).filter(element => element.opinion == 'steganography').length;
+                                                total =  JSON.parse(arr).filter(element => element.opinion == 'total').length;
+                                                blockchain =  JSON.parse(arr).filter(element => element.opinion == 'blockchain').length;
+                                                howtouse =  JSON.parse(arr).filter(element => element.opinion == 'howtouse').length;
+                                                etc =  JSON.parse(arr).filter(element => element.opinion == 'etc').length;
+
+                                                //etc =  JSON.parse(arr1).filter(element => element.opinion == 'etc').length;
+                                                //alert(app+" : app 1")
+                                                ocr1 = ocr;
+                                                watermark1 = watermark;
+                                                qr1 = qr;
+                                                steganography1 = steganography;
+                                                total1 = total;
+                                                blockchain1 = blockchain;
+                                                howtouse1 = howtouse;
+                                                etc1 = etc;
+                                                //resolve(app);
+                                                        } 
+                                                        
+                                                    })
+                                                    //alert(app+" : app 2");
+                                            return [ocr1, watermark1, qr1, steganography1, total1, blockchain1, howtouse1, etc1]  
+                                            
+                                    }
+                                 
+                                    result1 = charData();
+                                        
+                                        var myChart = new Chart(ctx, {
+                                            type: 'doughnut',
+                                            //type: 'polarArea',
+                                            data: {
+                                                labels: ["OCR 관련", "Water Mark 관련", "QR 관련", "Steganography 관련", "Total 관련", "BlockChain 관련", "어떻게 쓰는지 모르겠어요", "기타"],
+                                                datasets: [{
+                                                    label: 'Week',
+                                                    data: [result1[0], result1[1], result1[2], result1[3], result1[4], result1[5], result1[6], result1[7]],
+                                                    backgroundColor: [
+                                                        window.chartColors.primary,
+                                                        window.chartColors.secondary,
+                                                        window.chartColors.success,
+                                                        window.chartColors.superwarning,
+                                                        window.chartColors.danger,
+                                                        window.chartColors.warning,
+                                                        window.chartColors.info,
+                                                        window.chartColors.a
+                                                    ],
+                                                    borderColor: '#fff',
+                                                    //fill: false
+                                                }]
+                                            },
+                                            options: {
+                                                legend: {
+                                                    display: true
+                                                }
+                                            }
+                                        });
+                                        //document.write("현재 로그인 한 사람은 " + localStorage.getItem('name') + "입니다.");
+                                        //document.write("board: " + localStorage.getItem('token') + "#");
+
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        <!--</div>-->
+    <!--</div>-->
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+
+        <div class="footer-top">
+        <div class="container">
+            <div class="row">
+
+            <div class="col-lg-4 col-md-6 footer-contact">
+                <h3><a href="index.html" class="logo mr-auto"><img src="/assets/img/foot_logo.png" alt="" class="img-fluid"></a></h3>
+                <p>
+                서울특별시 성북구 안암로 145 고려대학교 산학관<br><br>
+                <strong>Phone:</strong> 02 3291 2200<br>
+                <strong>Fax:</strong> 070 4275 5321<br>
+                <strong>Email:</strong> info@kounosoft.com<br>
+                </p>
+            </div>
+
+            <div class="col-lg-6 col-md-6 footer-links">
+                <!--<h4>Useful Links</h4>-->
+                <ul>
+                <li><i class="bx bx-chevron-right"></i> <a href="index.html">홈</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="down.html">다운로드</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="summary.html">서비스 개요</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="manual.html">매뉴얼</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="board.html">게시판</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="kakaoMap.html">카톡 지도 보내기</a></li>          
+                <li><i class="bx bx-chevron-right"></i> <a href="chartjs.html">게시판 통계</a></li> 
+                </ul>
+            </div>
+
+            </div>
+        </div>
+        </div>
+    
+    </footer><!-- End Footer -->
+
+    <a href="#" class="back-to-top"><i class="bx bx-up-arrow-alt"></i></a>
+    <div id="preloader"></div>
+
+    <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="/assets/js/easion.js"></script>
+
+    <!-- Vendor JS Files -->
+    <script src="/assets/js/jqeury_bundle.js"></script>
+    <script src="/assets/js/bootstrap_bundle.js"></script>
+    <script src="/assets/js/counterup_bundle.js"></script>
+    <script src="/assets/js/carousel_bundle.js"></script>
+    <script src="/assets/js/aos_bundle.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="/assets/js/main_bundle.js"></script>
+</body>
+
+</html>
