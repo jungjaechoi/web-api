@@ -19,9 +19,9 @@
             <li><a href="/demo.html">API 데모</a></li>
             <li><a href="/board.html">게시판</a></li>
             <li><a id = "chart-btn" href="/chart.html" style="display: none;">Chart</a></li>
-            <li id = "login-btn" style ="position: absolute; margin-left: 750px; margin-top: 3px; padding: 6px 10px; border: solid 1px; text-align: center; height: 34px;"><a href= "login.html">로그인</a></li>
+            <li id = "login-btn" style ="position: absolute; margin-left: 750px; margin-top: 3px; padding: 6px 10px; border: solid 1px; text-align: center; height: 34px;"><a href= "/login.html">로그인</a></li>
             <li><div style = "position: absolute;  margin-left:160px; margin-top:1px; font-size: 12px;" id="result"></div></li>
-            <li id = "logout-btn" style ="position: absolute; margin-top: 3px; margin-left: 750px; display: none;   padding: 6px 10px; border: solid 1px; text-align: center; height: 34px;"  onclick="logout()"><a href="index.html">로그아웃</a></li>
+            <li id = "logout-btn" style ="position: absolute; margin-top: 3px; margin-left: 750px; display: none;   padding: 6px 10px; border: solid 1px; text-align: center; height: 34px;"  onclick="logout()"><a href="/index.html">로그아웃</a></li>
         
         </ul>
         </nav>
@@ -65,13 +65,14 @@
                 datatype: "json",
                 data: {email: localStorage.getItem('email')},
                 success: function(result){
+                  console.log(result);
                   if(result == 'admin'){
                     $('#chart-btn').show();
                     is_admin = 1;
                   }
                   $('#login-btn').hide();
                   $('#logout-btn').show();
-                  console.log(is_admin)
+
                   if(is_admin == 1){
                     resultdiv = localStorage.getItem('name')+' 님 (관리자) 안녕하세요.';  
                     
@@ -79,6 +80,7 @@
                   else {
                     resultdiv = localStorage.getItem('name')+' 님 안녕하세요.';
                   }
+
                   $('#result').append(resultdiv);
                 }
               })

@@ -156,16 +156,17 @@ export const verifyToken = async(req,res) => {
 }
 
 export const isAdmin = async(req,res) => {
+
     try{
         const {email} = req.body; 
-
         if(email==admin){
             return res.send('admin');
         }
         else{
-            return res.status('user');
+            return res.send('user');
         }
     } catch(err){
+        console.log('error')
         return res.send(404);
     }
 }

@@ -86,6 +86,25 @@
         </ul>
     </form> 
     </main><!-- End #main -->
+
+    <script type="text/javascript">
+
+      $(document).ready(function(){
+          $.ajax({
+              url: "/verifyToken",
+              type: "post",
+              datatype: "json",
+              data: {token: localStorage.getItem('token')},
+              success: function(result){
+                  if(result != 'ok'){
+                    alert('로그인이 필요한 서비스입니다.');
+                      window.location.href='/login.html';
+                  }
+              }
+          })
+      })
+      
+  </script>
  
   <script type = "text/javascript">
     $('input[name=email]').attr('value',localStorage.getItem('email'));
