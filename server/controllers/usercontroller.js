@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import Board from "../models/Board.js";
+import API from "../models/API.js";
 import jwt from 'jsonwebtoken';
 import {secretKey, option} from "../config/secretkey.js";
 import {admin} from "../config/admin.js";
@@ -18,6 +19,15 @@ export const footer = async (req, res) => {
 
 export const down = async(req,res) => {
     return res.render("down.html");
+};
+
+export const myAPI = async(req,res) => {
+    return res.render("myAPI.html");
+};
+
+
+export const explainAPI = async(req,res) => {
+    return res.render("explainAPI.html");
 };
 
 export const restAPI = async(req,res) => {
@@ -170,3 +180,20 @@ export const isAdmin = async(req,res) => {
         return res.send(404);
     }
 }
+
+export const issueApiKey = async(req,res) => {
+    const {id} = req.body; 
+    const token1 = jwt.sign({
+        id
+    }, secretKey,{
+        expiresIn: option.expiresIn
+    });
+    const token =String(token1);
+    const apiKey = token.substr(0,32)
+    await API.create({
+        apiKey,
+        owner: id
+    });
+    return res.redirect('/myAPI.html');
+}
+

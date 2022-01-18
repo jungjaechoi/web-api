@@ -1,6 +1,6 @@
 import express from "express";
 import {home, down, restAPI, demo, getLogin, postLogin, easyLogin, verifyToken,
-   getJoin, postJoin, header, footer, board, chart, isAdmin
+   getJoin, postJoin, header, footer, board, chart, isAdmin, explainAPI, myAPI
 } from "../controllers/usercontroller.js";
 
 const rootRouter = express.Router();
@@ -8,6 +8,8 @@ const rootRouter = express.Router();
 rootRouter.get("/", home);
 rootRouter.get("/index.html", home);
 rootRouter.get("/down.html", down);
+rootRouter.get("/myAPI.html", myAPI);
+rootRouter.get("/explainAPI.html", explainAPI);
 rootRouter.get("/restAPI.html", restAPI);
 rootRouter.get("/demo.html", demo);
 rootRouter.get("/chart.html", chart);
