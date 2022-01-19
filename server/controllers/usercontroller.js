@@ -4,6 +4,7 @@ import API from "../models/API.js";
 import jwt from 'jsonwebtoken';
 import {secretKey, option} from "../config/secretkey.js";
 import {admin} from "../config/admin.js";
+import { uuid } from 'uuidv4';
 
 export const home = async (req, res) => {
     return res.render("index.html");
@@ -182,18 +183,29 @@ export const isAdmin = async(req,res) => {
 }
 
 export const issueApiKey = async(req,res) => {
-    const {id} = req.body; 
-    const token1 = jwt.sign({
-        id
-    }, secretKey,{
-        expiresIn: option.expiresIn
-    });
-    const token =String(token1);
-    const apiKey = token.substr(0,32)
+    const {email} = req.body; 
+    const user = await User.find({email:email});
+    const temp = uuid();
+    const apiKey = temp.replace(/\-/g,'');
     await API.create({
         apiKey,
-        owner: id
+        owner: user[0]._id
     });
-    return res.redirect('/myAPI.html');
+    return res.send('success');
 }
 
+export const getApiKey = async(req,res) => {
+    const {email} = req.body; 
+    const user = await User.find({email:email});
+    const apiKey = await API.find({owner:user[0]._id});
+
+    return res.json({apiKey});
+}
+
+export const deleteKey = async(req,res) => {
+    const {apiKey} = req.body; 
+    API.deleteOne({apiKey: apiKey}, function(err){
+        if (err) return handleError(err);
+    });
+    return res.send('success');
+}
