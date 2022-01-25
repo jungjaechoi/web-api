@@ -2,8 +2,8 @@ import User from "../models/User.js";
 import Board from "../models/Board.js";
 import API from "../models/API.js";
 import jwt from 'jsonwebtoken';
-import {secretKey, option} from "../config/secretkey.js";
-import {admin} from "../config/admin.js";
+import {secretKey, option} from "../../config/secretkey.js";
+import {admin} from "../../config/admin.js";
 import { uuid } from 'uuidv4';
 
 export const home = async (req, res) => {
@@ -77,7 +77,6 @@ export const postJoin = async(req,res) => {
             res.write("<script>alert(\"Accepted. Please Login Again.\")</script>");
             res.write("<script>window.location='/login.html'</script>");
         }
-        
     }
 }
 
@@ -148,11 +147,16 @@ export const board = async(req,res) => {
 }
 
 export const verifyToken = async(req,res) => {
+    const {token} = req.body;
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace('-', '+').replace('_', '/');
+    console.log(JSON.parse(atob(base64)));
     if(req.body.token==''){
         return res.send('needLogin');
     }
     try{
-        const {token} = req.body;
+        
+        
         const decoded = jwt.verify(token, secretKey);
 
         if(decoded){
