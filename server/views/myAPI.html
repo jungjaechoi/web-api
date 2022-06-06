@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>AR 실내내비게이션서비스</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+   <!-- Favicons -->
+   <link href="/assets/img/favicon.png" rel="icon">
+
+   <!-- Google Fonts -->
+   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+ 
+   <!-- Main CSS File -->
+   <link rel="stylesheet" type="text/css" href="/assets/js/css/styles.css">..
+
+</head>
+
+<body>
+
+  <div id='header'></div>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+        $("#header").load("/header.html", function () {
+        });
+    })       
+  </script>
+
+<script type="text/javascript">
+    var apis = document.getElementById('APIs');
+    
+    $(document).ready(function(){
+        $.ajax({
+            url: "/verifyToken",
+            type: "post",
+            datatype: "json",
+            data: {token: localStorage.getItem('token')},
+            success: function(result){
+                if(result != 'ok'){
+                  alert('로그인이 필요한 서비스입니다.');
+                    window.location.href='/login.html';
+                }
+                else {
+                    $(document).ready(function(){
+                        $.ajax({
+                            url: "/getApiKey",
+                            type: "post",
+                            datatype: "json",
+                            data: {email: localStorage.getItem('email')},
+                            success: function(result){
+                                length = result.apiKey.length;
+                                keyList = result.apiKey;
+                                for(var i = 0; i < length; i++){
+
+                                    var temp = document.createElement('div');
+
+                                    temp.innerHTML = `<div class = "row api-btn" onClick="deleteKey('${result.apiKey[i].apiKey}')" style=" background-color: rgb(247, 247, 247); height: 70px; margin: auto auto; margin-top: 20px; color: black;">
+                                                        <img src="/assets/img/app.png" style="margin: auto 10px;" >
+                                                        <h3 style="margin: 26px 10px; ">${result.apiKey[i].apiKey}</h3>
+                                                    </div>`;
+
+                                    document.getElementById('APIs').appendChild(temp);
+
+                                    let api_btn = document.getElementsByClassName('api-btn')[i];
+    
+                                    api_btn.addEventListener('mouseover', (event) => {
+                                        api_btn.style="background-color: rgb(161, 161, 161); height: 70px; margin: auto auto; margin-top: 20px; color: black;"
+                                    });
+
+                                    api_btn.addEventListener('mouseout', (event) => {
+                                        api_btn.style="background-color: rgb(247, 247, 247); height: 70px; margin: auto auto; margin-top: 20px; color: black;"
+                                    });
+                                }
+                            }
+                        })
+                    })
+                }
+            }
+        })
+    })
+
+    function getApiKey() {
+        var result = confirm("발급받으시겠습니까?");
+        if(result){
+            $(document).ready(function(){
+                $.ajax({
+                    url: "/issueApiKey",
+                    type: "post",
+                    datatype: "json",
+                    data: {email: localStorage.getItem('email')},
+                    success: function(result){
+                        if(result =="success"){
+                            alert("API Key가 성공적으로 발급되었습니다.");
+                        }
+                        else{
+                            alert("오류가 발생했습니다.");
+                        }
+                        window.location.href = '/myAPI.html';
+                    }
+                })
+            })
+        }
+    }
+
+    function deleteKey(element){
+        var result = confirm("해당 API Key를 삭제하시겠습니까?");
+        if(result){
+            $(document).ready(function(){
+                    $.ajax({
+                        url: "/deleteKey",
+                        type: "post",
+                        datatype: "json",
+                        data: {apiKey: element},
+                        success: function(result){
+                            if(result =="success"){
+                                alert("삭제되었습니다.");
+                            }
+                            else{
+                                alert("오류가 발생했습니다.");
+                            }
+                            window.location.href = '/myAPI.html';
+                        }
+                    })
+                })
+            }
+    }
+</script>
+
+<main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <div style="margin-top: 27px; color: white; background-color: rgb(65, 64, 64); height: 45px; padding: 13px 0px; text-align: center; ">
+        <h4 >내가 발급받은 API</h4>
+    </div><!-- End Breadcrumbs -->
+
+
+    <div style="overflow:hidden; height: auto; width: 700px; margin: auto auto; margin-top: 50px;">
+        <h3>전체 API</h3>
+        <div id="issue-btn" class = "row"style=" background-color: rgb(0, 28, 151); height: 70px; margin: auto auto; margin-top: 20px; color: white;" onclick="getApiKey()">
+            <img src="/assets/img/plus.PNG" style="margin: auto 10px;" >
+            <h3 style="margin: 26px 10px; font-weight: bold;">API Key 추가 발급받기</h3>
+        </div>
+        <div id="APIs" > 
+        </div>
+    </div>
+
+ 
+</main><!-- End #main -->
+
+<script type="text/javascript">
+    
+    const issue_btn = document.getElementById('issue-btn');
+
+    issue_btn.addEventListener('mouseover', (event) => {
+        issue_btn.style="background-color: rgb(4, 17, 73); height: 70px; margin: auto auto; margin-top: 20px; color: white;"
+    });
+
+    issue_btn.addEventListener('mouseout', (event) => {
+        issue_btn.style="background-color: rgb(0, 28, 151); height: 70px; margin: auto auto; margin-top: 20px; color: white;"
+    });
+
+</script>
+
+
+
+  <a href="#" class="back-to-top"><i class="bx bx-up-arrow-alt"></i></a>
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="/assets/js/jqeury_bundle.js"></script>
+  <script src="/assets/js/bootstrap_bundle.js"></script>
+  <script src="/assets/js/counterup_bundle.js"></script>
+  <script src="/assets/js/carousel_bundle.js"></script>
+  <script src="/assets/js/aos_bundle.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/assets/js/main_bundle.js"></script>
+
+</body>
+
+</html>

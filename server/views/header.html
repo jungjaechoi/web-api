@@ -15,12 +15,14 @@
         <ul>
             <li><a href="/index.html">홈</a></li>
             <li><a href="/down.html">다운로드</a></li>
+            <li><a href="/myAPI.html">My API</a></li>
+            <li><a href="/explainAPI.html">이해하기</a></li>
             <li><a href="/restAPI.html">REST API</a></li>
             <li><a href="/demo.html">API 데모</a></li>
             <li><a href="/board.html">게시판</a></li>
             <li><a id = "chart-btn" href="/chart.html" style="display: none;">Chart</a></li>
             <li id = "login-btn" style ="position: absolute; margin-left: 750px; margin-top: 3px; padding: 6px 10px; border: solid 1px; text-align: center; height: 34px;"><a href= "/login.html">로그인</a></li>
-            <li><div style = "position: absolute;  margin-left:160px; margin-top:1px; font-size: 12px;" id="result"></div></li>
+            <li><div style = "position: absolute;  margin-left:70px; margin-top:1px; font-size: 12px;" id="result"></div></li>
             <li id = "logout-btn" style ="position: absolute; margin-top: 3px; margin-left: 750px; display: none;   padding: 6px 10px; border: solid 1px; text-align: center; height: 34px;"  onclick="logout()"><a href="/index.html">로그아웃</a></li>
         
         </ul>
@@ -74,7 +76,8 @@
                   $('#logout-btn').show();
 
                   if(is_admin == 1){
-                    resultdiv = localStorage.getItem('name')+' 님 (관리자) 안녕하세요.';  
+                    resultdiv = '관리자 님 안녕하세요.'; 
+                    document.getElementById('result').style = " position: absolute;  margin-top:1px; font-size: 12px;margin-left: 10px;";
                     
                   }
                   else {

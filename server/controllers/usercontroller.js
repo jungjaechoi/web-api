@@ -1,9 +1,10 @@
 import User from "../models/User.js";
 import Board from "../models/Board.js";
+import API from "../models/API.js";
 import jwt from 'jsonwebtoken';
 import {secretKey, option} from "../config/secretkey.js";
 import {admin} from "../config/admin.js";
-import moment from "moment";
+import { uuid } from 'uuidv4';
 
 export const home = async (req, res) => {
     return res.render("index.html");
@@ -19,6 +20,15 @@ export const footer = async (req, res) => {
 
 export const down = async(req,res) => {
     return res.render("down.html");
+};
+
+export const myAPI = async(req,res) => {
+    return res.render("myAPI.html");
+};
+
+
+export const explainAPI = async(req,res) => {
+    return res.render("explainAPI.html");
 };
 
 export const restAPI = async(req,res) => {
@@ -67,7 +77,6 @@ export const postJoin = async(req,res) => {
             res.write("<script>alert(\"Accepted. Please Login Again.\")</script>");
             res.write("<script>window.location='/login.html'</script>");
         }
-        
     }
 }
 
@@ -138,11 +147,14 @@ export const board = async(req,res) => {
 }
 
 export const verifyToken = async(req,res) => {
+    const {token} = req.body;
+    
     if(req.body.token==''){
         return res.send('needLogin');
     }
     try{
-        const {token} = req.body;
+        
+        
         const decoded = jwt.verify(token, secretKey);
 
         if(decoded){
@@ -170,4 +182,33 @@ export const isAdmin = async(req,res) => {
         console.log('error')
         return res.send(404);
     }
+}
+
+export const issueApiKey = async(req,res) => {
+    const {email} = req.body; 
+    const user = await User.find({email:email});
+    const temp = uuid();
+    const apiKey = temp.replace(/\-/g,'');
+    await API.create({
+        apiKey,
+        owner: user[0]._id
+    });
+    return res.send('success');
+}
+
+export const getApiKey = async(req,res) => {
+    const {email} = req.body; 
+    const user = await User.find({email:email});
+    console.log(user[0]._id);
+    const apiKey = await API.find({owner:user[0]._id});
+
+    return res.json({apiKey});
+}
+
+export const deleteKey = async(req,res) => {
+    const {apiKey} = req.body; 
+    API.deleteOne({apiKey: apiKey}, function(err){
+        if (err) return handleError(err);
+    });
+    return res.send('success');
 }

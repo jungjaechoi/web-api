@@ -1,6 +1,7 @@
 import express from "express";
 import {home, down, restAPI, demo, getLogin, postLogin, easyLogin, verifyToken,
-   getJoin, postJoin, header, footer, board, chart, isAdmin
+   getJoin, postJoin, header, footer, board, chart, isAdmin, explainAPI, myAPI, 
+   issueApiKey, getApiKey, deleteKey
 } from "../controllers/usercontroller.js";
 
 const rootRouter = express.Router();
@@ -8,6 +9,8 @@ const rootRouter = express.Router();
 rootRouter.get("/", home);
 rootRouter.get("/index.html", home);
 rootRouter.get("/down.html", down);
+rootRouter.get("/myAPI.html", myAPI);
+rootRouter.get("/explainAPI.html", explainAPI);
 rootRouter.get("/restAPI.html", restAPI);
 rootRouter.get("/demo.html", demo);
 rootRouter.get("/chart.html", chart);
@@ -19,5 +22,8 @@ rootRouter.post("/easylogin",easyLogin);
 rootRouter.route("/join.html").get(getJoin).post(postJoin);
 rootRouter.post("/verifyToken", verifyToken);
 rootRouter.post("/isAdmin", isAdmin);
+rootRouter.post("/issueApiKey", issueApiKey);
+rootRouter.post("/getApiKey", getApiKey);
+rootRouter.post("/deleteKey", deleteKey);
 
 export default rootRouter;   
